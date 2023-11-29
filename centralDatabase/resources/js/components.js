@@ -1,0 +1,17 @@
+// app.component('app', App);
+// app.component('search', Search);
+// app.component('add', Add);
+// app.component('customheader', Header);
+// app.component('directory', Directory);
+// app.component('home', Home);
+// app.component('modules', Modules);
+// app.component('contacts', Contacts);
+// app.component('chat', Chat);
+// app.component('speech', Speech);
+// app.component('login', Login);
+// app.component('register', Register);
+// app.component('registerEmployee', RegisterEmployee);
+// app.component('upload', Upload);
+// app.component('Projects', Projects);
+// app.component('board', Board);
+// app.component('file', File);
