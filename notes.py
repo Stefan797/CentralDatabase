@@ -383,3 +383,514 @@
 
 #             keyRegister[keyboard.key] = false;
 #         });
+
+
+
+    # //  getcontest File fetch text = response.string
+
+    # //http://localhost:4455/storage/files/laravel.txt = pfad auf Files direct
+    # //http://localhost:4455/api/getAllFiles = auf controller direct zugreifen
+
+
+
+# export default {
+#     data() {
+#         return {
+#             alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+#             apiUrl: '/api/getAllFiles',
+#             fileObjects: [],
+#             // selectedFile: null,
+#             // selectedFileContents: null
+#         }
+#     },
+#     methods: {
+#         getdata() {
+#             fetch(this.apiUrl, {
+#             })
+#                 .then((response) => {
+#                     console.log(response);
+#                     if (response.ok) {
+#                         return response.json();
+#                     }
+#                     throw new Error('Something went wrong');
+#                 })
+#                 .then((responseJson) => {
+#                     console.log(responseJson);
+#                     // Do something with the response
+#                     this.fileObjects = responseJson.data;
+#                 })
+#                 .catch((error) => {
+#                     console.log(error)
+#                 });
+
+#             //console.log(this.fileObject);
+#         },
+
+#         // sortdata() {
+#         //     const groupIt = (array) => {
+#         //         let resultObj = {};
+
+#         //         for (let i = 0; i < array.length; i++) {
+#         //             let currentWord = array[i];
+#         //             let firstChar = currentWord[0].toLowerCase();
+#         //             let innerArr = [];
+#         //             if (resultObj[firstChar] === undefined) {
+#         //                 innerArr.push(currentWord);
+#         //                 resultObj[firstChar] = innerArr
+#         //             } else {
+#         //                 resultObj[firstChar].push(currentWord)
+#         //             }
+#         //         }
+#         //         return resultObj
+#         //     }
+#         // }
+
+#         // selectFile(fileObject) {
+#         //     console.log('file has been selected', fileObject);
+#         //     // logik hier um file auszulesen und anzuzeigen?
+#         //     this.selectedFile = fileObject;
+#         //     //this.loadFile(fileObject.fileurl)
+#         // }
+#     },
+
+#     created() {
+#         this.getdata(); // Call getdata() method when the component is created
+#     }
+# };
+
+
+# <!-- <div>
+# <ul v-for="(client, index) in clients.sort((a, b) => (a.name > b.name) ? 1 : -1)" :key="index">
+# <li v-for="(fileName, index) in sortedFileNames" :key="index">
+# {{ fileName }}
+# </li>
+# </ul>
+# </div> -->
+
+# height: calc(100vh - 8vh)
+
+
+# const getFileObjectsByLetter = computed(() => {
+#   const filteredFileObjects = {};
+#   alphabet.forEach(letter => {
+#     filteredFileObjects[letter] = fileObjects.value.filter(fileObject =>
+#       fileObject.filename.toUpperCase().startsWith(letter)
+#     );
+#   });
+#   return filteredFileObjects;
+# });
+
+# <div v-if="getFileObjectsByLetter(letter).length > 0" v-for="fileObject in getFileObjectsByLetter(letter)" :key="fileObject.id">
+#     <p @click="selectFile(fileObject)">{{ fileObject.filename }}</p>
+#     <a :href="fileObject.fileurl">Link</a>
+# </div>
+
+# <!--IF File with first letter exist then show here! -->
+# <!--letter should compare with fileObject.filename -->
+
+        # table 
+        #     tbody 
+        #         tr 
+        #             td 
+
+# export default {
+#     name: 'speech_to_text',
+#     data() {
+#         return {
+#             runtimeTranscription_: "",
+#             transcription_: [],
+#             lang_: "de-DE",
+#             keyRegister: {},
+#             startrec: false
+#         };
+#     },
+
+#     mounted() {
+#         window.addEventListener("keydown", (keyboard) => {
+#             this.keyRegister[keyboard.key] = true;
+#         });
+
+#         window.addEventListener("keyup", (keyboard) => {
+
+#             if (this.startrec) {
+#                 if (this.keyRegister['e'] && this.keyRegister['l']) {
+#                     this.startSpeechToTxt();
+#                 }
+#             }
+
+#             this.keyRegister[keyboard.key] = false;
+#         });
+#     },
+
+#     methods: {
+#         startSpeechToTxt() {
+
+#             window.SpeechRecognition =
+#                 window.SpeechRecognition ||
+#                 window.webkitSpeechRecognition;
+
+#             const recognition = new window.SpeechRecognition();
+#             console.log(recognition);
+
+#             recognition.lang = this.lang_;
+#             recognition.interimResults = true;
+
+#             recognition.addEventListener("result", event => {
+#                 let text = Array.from(event.results)
+#                     .map(result => result[0])
+#                     .map(result => result.transcript)
+#                     .join("");
+#                 this.runtimeTranscription_ = text;
+#             });
+
+#             recognition.addEventListener("end", () => {
+#                 this.transcription_.push(this.runtimeTranscription_);
+#                 this.runtimeTranscription_ = "";
+#                 recognition.stop();
+#             });
+#             recognition.start();
+#         },
+
+#     }
+# }
+
+
+#  <!-- <div>
+#                 <label for="title">Titel</label>
+#                 <input v-model="formData.title" type="text" name="title" id="title">
+#             </div> -->
+
+
+
+
+# const sendForm = () => {
+#     const data = new FormData();
+#     data.append("file", formData.value.file);
+#     console.log(data);
+#     console.log(formData);
+
+#     dataManager.postData(data)
+#         .then((responseData) => {
+#             // Handhaben Sie die Antwort der POST-Anfrage
+#             console.log('Daten erfolgreich gepostet:', responseData);
+#             uploadPath.value = responseData.uploaded_path;
+#         })
+#         .catch((error) => {
+#             // Handhaben Sie einen Fehler bei der POST-Anfrage
+#             console.error('Fehler beim Posten der Daten:', error);
+#         });
+    
+    
+#         // if (!formData.value.title) {
+#     //     console.error('no title set');
+#     //     return;
+#     // }
+
+#     // if (!formData.value.file) {
+#     //     console.error('no file set');
+#     //     return;
+#     // }
+
+#     // console.log('Alles gut!')
+
+#     // const data = new FormData();
+#     // data.append("file", formData.value.file);
+#     // // data.append("title", formData.value.title);
+
+#     // fetch(apiUrl, {
+#     //     method: 'post',
+#     //     body: data,
+#     // })
+#     //     .then((response) => {
+#     //         if (response.ok) {
+#     //             return response.json();
+#     //         }
+#     //         throw new Error('Etwas ist schiefgelaufen');
+#     //     })
+#     //     .then((responseJson) => {
+#     //         // Etwas mit der Antwort machen
+#     //         uploadPath.value = responseJson.uploaded_path;
+#     //     })
+#     //     .catch((error) => {
+#     //         console.log(error)
+#     //     });
+# };
+# </script>
+
+
+# // export default {
+# //     data() {
+# //         return {
+# //             'user': {
+# //                 'username': '',
+# //                 'first_name': '',
+# //                 'last_name': '',
+# //                 'email': '',
+# //                 'password': ''
+# //             }
+# //         };
+# //     },
+
+# //     methods: {
+# //         saveData() {
+# //             axios.post('/user/create', this.user).then(
+# //                 response => {
+# //                     console.log(response);
+# //                     //login();
+# //                 }
+# //             ).catch(error => {
+# //                 console.log('error');
+# //             })
+# //         },
+
+# //         // login() {
+# //         //     router.push('/v');
+# //         // },
+
+# //         showPassword() {
+# //             const passwordInput = this.$refs.passwordInput;
+# //             if (passwordInput.type === 'password') {
+# //                 passwordInput.type = 'text';
+# //             } else {
+# //                 passwordInput.type = 'password';
+# //             }
+# //         }
+# //     }
+# // }
+
+
+# // export default {
+# //     data() {
+# //         return {
+# //             'user': {
+# //                 'email': '',
+# //                 'password': ''
+# //             },
+# //             checkboxVisible: false,
+# //             token: null,
+# //             user_id: null,
+# //             doNotMemorizeUserData: false
+# //         };
+# //     },
+# //     methods: {
+# //         login() {
+# //             const vm = this;
+# //             axios.post('/user/login', this.user).then(
+# //                 response => {
+# //                     console.log('loginresponse', response);
+# //                     vm.token = response.data.token
+# //                     vm.user_id = response.data.user_id
+# //                     vm.setInformations();
+# //                     vm.$router.push('/v');
+# //                 },
+# //             ).catch(error => {
+# //                 console.log('error');
+# //             })
+# //         },
+
+# //         setInformations() {
+# //             if (!this.doNotMemorizeUserData) {
+# //                 localStorage.removeItem('token');
+# //                 localStorage.removeItem('CurrentUserID');
+# //                 sessionStorage.setItem('token', this.token);
+# //                 sessionStorage.setItem('CurrentUserID', this.user_id);
+# //             } else {
+# //                 localStorage.setItem('token', this.token);
+# //                 localStorage.setItem('CurrentUserID', this.user_id);
+# //             }
+# //         },
+
+# //         showPassword() {
+# //             const passwordInput = this.$refs.passwordInput;
+# //             if (passwordInput.type === 'password') {
+# //                 passwordInput.type = 'text';
+# //             } else {
+# //                 passwordInput.type = 'password';
+# //             }
+# //         },
+
+# //         rememberMe() {
+# //             this.checkboxVisible = !this.checkboxVisible;
+# //             if (this.checkboxVisible) {
+# //                 this.doNotMemorizeUserData = true;
+# //             } else {
+# //                 this.doNotMemorizeUserData = false;
+# //             }
+
+# //             console.log(this.doNotMemorizeUserData);
+# //         }
+# //     },
+# // };
+
+
+# // export default {
+# //     data() {
+# //         return {
+# //             //logoutresponse: null,
+# //         };
+# //     },
+# //     methods: {
+# //         logout() {
+# //             const vm = this;
+# //             axios.get('/user/logout', this.user).then(
+# //                 response => {
+# //                     console.log('logoutresponse', response);
+# //                     //vm.logoutresponse = response.logout
+# //                     vm.clearInformations();
+# //                     vm.$router.push('/v/login');
+# //                 },
+# //             ).catch(error => {
+# //                 console.log('error');
+# //             })
+# //         },
+
+# //         clearInformations() {
+# //             localStorage.removeItem('token');
+# //             localStorage.removeItem('CurrentUserID');
+# //             sessionStorage.removeItem('token', this.token);
+# //             sessionStorage.removeItem('CurrentUserID', this.user_id);
+# //         }
+# //     },
+# // };
+
+
+# // Benutzerdaten, die wahrscheinlich aus einem anderen Ort kommen
+# // let token = localStorage.getItem('token');
+# // let user_id = localStorage.getItem('CurrentUserID')
+
+
+# // export default {
+# //     data() {
+# //         return {
+# //             apiUrl: '/api/upload',
+# //             formData: {},
+# //             uploadPath: null
+# //         }
+# //     },
+
+# //     methods: {
+# //         onUploadFiles(evt) {
+# //             console.log(this.$refs.myfile.files)
+# //             this.formData.file = this.$refs.myfile.files[0];
+
+# //             console.log(this.formData.file.name);
+# //         },
+
+# //         sendForm() {
+# //             // if (!this.formData.title) {
+# //             //     console.error('no title set');
+# //             //     return;
+# //             // }
+
+# //             if (!this.formData.file) {
+# //                 console.error('no file set');
+# //                 return;
+# //             }
+
+# //             console.log('good to go!')
+
+# //             const formData = new FormData();
+# //             formData.append("file", this.formData.file);
+# //             formData.append("title", this.formData.title);
+
+# //             fetch(this.apiUrl, {
+# //                 method: 'post',
+# //                 body: formData,
+# //             })
+# //                 .then((response) => {
+# //                     if (response.ok) {
+# //                         return response.json();
+# //                     }
+# //                     throw new Error('Something went wrong');
+# //                 })
+# //                 .then((responseJson) => {
+# //                     // Do something with the response
+# //                     this.uploadPath = responseJson.uploaded_path;
+# //                 })
+# //                 .catch((error) => {
+# //                     console.log(error)
+# //                 });
+# //         }
+# //     }
+# // }
+
+
+# const getFileContent = (fileObject) => {
+#     // debugger;
+#     if (fileObject.value) {
+#         const fileType = getFileType(fileObject.value.filename);
+#         if (fileType === 'image') {
+#             return `<img src="${fileObject.value.fileurl}" alt="${fileObject.value.filename}">`;
+#         } else if (fileType === 'video') {
+#             return `<video src="${fileObject.value.fileurl}" controls></video>`;
+#         } else if (fileType === 'text') {
+#             // Hier können Sie eine Logik hinzufügen, um den Textinhalt der Datei anzuzeigen
+#             return `<embed src="${fileObject.value.fileurl}">`;
+#         }
+#     }
+#     return 'Datei nicht gefunden oder ungültiger Dateityp';
+# };
+
+
+# <!-- <h1>{{ $route.params.id }}</h1> -->
+
+#                 <!-- <div class="file-content-container" v-if="fileObject">
+#                     <div v-html="getFileContent(fileObject)"></div>
+#                 </div>
+#                 <div v-else>
+#                     Datei nicht gefunden oder ungültiger Dateityp
+#                 </div> -->
+
+#  <div v-else>
+#                     Datei nicht gefunden oder ungültiger Dateityp
+#                 </div>
+
+# <!-- <h1>{{ $route.params.filename }}</h1> -->
+
+
+# const startSpeechToTxt = () => {
+#     window.SpeechRecognition =
+#         window.SpeechRecognition ||
+#         window.webkitSpeechRecognition;
+
+#     const recognition = new window.SpeechRecognition();
+#     console.log(recognition);
+
+#     recognition.lang = lang_.value;
+#     recognition.interimResults = true;
+
+#     recognition.addEventListener("result", event => {
+#         let text = Array.from(event.results)
+#             .map(result => result[0])
+#             .map(result => result.transcript)
+#             .join("");
+#         runtimeTranscription_.value = text;
+#     });
+
+#     recognition.addEventListener("end", () => {
+#         transcription_.value.push(runtimeTranscription_.value);
+#         runtimeTranscription_.value = "";
+#         recognition.stop();
+#     });
+#     recognition.start();
+# };
+
+
+# // protected function fileurl(): Attribute
+#     // {
+#     //     return Attribute::make(
+#     //         get: fn (string $value, array $attributes) {
+#     //             echo "test";
+#     //             return $attributes['filename'] + "test";
+#     //         },
+#     //     );
+#     // }
+
+
+# // Route::middleware('auth:sanctum')->get('/posts/{post}', function (\App\Models\Post $post) {
+# //     \Illuminate\Support\Facades\Gate::authorize('view-post', $post);
+        
+
+# //     return $post;
+# // });
+

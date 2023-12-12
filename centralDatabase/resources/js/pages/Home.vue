@@ -2,24 +2,27 @@
 </script>
 
 <template>
-    <customheader></customheader>
-    <div class="display-flex">
-        <add></add>
-        <search></search>
+    <div class="page">
+        <customheader></customheader>
+        <div class="wrapper center">
+            <div class="first-part">
+                <add></add>
+                <speech></speech>
+            </div>
+
+            <div class="second-part">
+                <upload></upload>
+                <search></search>
+            </div>
+        </div>
     </div>
 
-    <div class="display-flex">
-        <speech></speech>
-        <upload></upload>
-    </div>
-
-
-    <keyboard></keyboard>
+    <!-- <keyboard></keyboard> -->
 </template>
 
 <script>
 </script>
   
 <style>
-@import '@/sass/pages/home.sass'; 
+@import '@/sass/pages/home.sass';
 </style>

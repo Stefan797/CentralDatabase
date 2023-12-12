@@ -1,14 +1,16 @@
 <script setup>
+import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
+
+const { goToPath } = usehandleroutingManager();
 </script>
 
 <template>
     <customheader></customheader>
     <div class="module">
-        <div class="cards">
+        <div @click="goToPath('/v/projects')" class="cards kanbanbg">
         </div>
 
-        <div class="cards">
-            <router-link to="/v/projects"><img class="choose-img cursor" src="/images/directory.png"/></router-link>
+        <div @click="goToPath('/v/index-cards')" class="cards indexcardsbg">
         </div>
     </div>
 </template>
@@ -17,6 +19,6 @@
 </script>
   
 <style>
-@import '@/sass/pages/modules.sass'; 
+@import '@/sass/pages/modules.sass';
 </style>
 

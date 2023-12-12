@@ -39,15 +39,25 @@ const router = createRouter({
       name: 'Board',
       component: () => import('./pages/Board.vue')
     },
+    // {
+    //   path: '/v/file',
+    //   name: 'File',
+    //   component: () => import('./pages/File.vue')
+    // },
     {
-      path: '/v/file',
-      name: 'File',
-      component: () => import('./pages/File.vue')
+      path: '/v/file/:filename', // Verwenden Sie ein dynamisches Segment für den Dateinamen
+      name: 'File', // Optional: Name der Route
+      component: () => import('./pages/File.vue'), // Beispielansicht, in der der Dateiname angezeigt wird
     },
     {
       path: '/v/cooking',
       name: 'Cooking',
       component: () => import('./pages/Cooking.vue')
+    },
+    {
+      path: '/v/index-cards',
+      name: 'IndexCards',
+      component: () => import('./pages/IndexCards.vue')
     },
     {
       path: '/v/login',

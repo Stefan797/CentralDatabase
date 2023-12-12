@@ -20,6 +20,7 @@ import Projects from './pages/Projects.vue'
 import Board from './pages/Board.vue'
 import File from './pages/File.vue'
 import Cooking from './pages/Cooking.vue'
+import IndexCards from './pages/IndexCards.vue'
 
 import router from './router.js'
 
@@ -48,5 +49,6 @@ app.component('board', Board);
 app.component('file', File);
 app.component('cooking', Cooking);
 app.component('keyboard', Keyboard);
+app.component('indexcards', IndexCards);
 
 app.mount('#app');

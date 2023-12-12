@@ -1,4 +1,35 @@
 <script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+// import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
+// const routingManager = usehandleroutingManager();
+
+const user = ref({}); ;
+const router = useRouter();
+
+const logout = async () => {
+  try {
+    const response = await axios.get('/user/logout', user.value);
+    console.log('Logout-Reaktion', response);
+    // clearInformations();
+    router.push('/v/login');
+  } catch (error) {
+    console.error('Fehler', error);
+  }
+};
+
+const openInNewTab = (path) => {
+    const routeData = router.resolve({ path });
+    window.open(routeData.href, '_blank');
+};
+
+// const clearInformations = () => {
+//   localStorage.removeItem('token');
+//   localStorage.removeItem('CurrentUserID');
+//   sessionStorage.removeItem('token');
+//   sessionStorage.removeItem('CurrentUserID');
+// };
 </script>
 
 <template>
@@ -10,45 +41,16 @@
         <router-link to="/v"><h1>CentralDatabase</h1></router-link>
         
         <div class="icon-container-right">
-            <router-link to="/v/cooking"><img src="/images/kochmütze.png"/></router-link>
-            <router-link to="/v/chat"><img src="/images/chat.png"/></router-link>
-            <router-link to="/v/contacts"><img src="/images/contacts.png"/></router-link>
-            <router-link to="/v/modules"><img src="/images/modules.png"/></router-link>
-            <router-link to="/v/directory"><img src="/images/directory.png"/></router-link>
+            <a href="#" @click="openInNewTab('/v/cooking')"><img src="/images/kochmütze.png"/></a>
+            <a href="#" @click="openInNewTab('/v/chat')"><img src="/images/chat.png"/></a>
+            <a href="#" @click="openInNewTab('/v/contacts')"><img src="/images/contacts.png"/></a>
+            <a href="#" @click="openInNewTab('/v/modules')"><img src="/images/modules.png"/></a>
+            <a href="#" @click="openInNewTab('/v/directory')"><img src="/images/directory.png"/></a>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            //logoutresponse: null,
-        };
-    },
-    methods: {
-        logout() {
-            const vm = this;
-            axios.get('/user/logout', this.user).then(
-                response => {
-                    console.log('logoutresponse', response);
-                    //vm.logoutresponse = response.logout
-                    vm.clearInformations();
-                    vm.$router.push('/v/login');
-                },
-            ).catch(error => {
-                console.log('error');
-            })
-        },
-
-        clearInformations() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('CurrentUserID');
-            sessionStorage.removeItem('token', this.token);
-            sessionStorage.removeItem('CurrentUserID', this.user_id);
-        }
-    },
-};
 </script>
   
 <style>

@@ -1,51 +1,38 @@
 .add
     width: 44vw
-    height: 30vh
+    height: 82vh
     padding: 0 1vw 0 1vw
     margin: 20px 2vw 0 2vw
-    background-color: lightblue
+    background-color: #5c88cc
     border-radius: 8px
     .form-container
-        width: 98%
+        display: flex
+        width: 95%
         height: 95%
-        border-radius: 8px
-        .upper-part
-            height: 80%
-            .text-container
-                width: 68%
-                height: 95%
-                textarea
-                    width: 100%
-                    height: 100%
-                    border-radius: 8px
-                    padding: 3px
-                    border: none
-                    outline: none
-                    color: #2d3030
-                    letter-spacing: 1px
-                    font-size: 13px
-
-            .choose-file-container
-                width: 28%
-                height: 95%
-                margin-left: 2%
-                select
-                    width: 95%
-                    height: 5vh
-                    background-color: #183a52
-                    color: white
-                    border-radius: 8px
-           
-
-        .add-btn-container
+        
+        .text-container
             width: 100%
-            height: 20%
-            align-items: center
-            button 
-                width: 20%
-                height: 80%
-                background-color: #183a52
-                color: white
+            height: 80%
+            textarea
+                width: 99%
+                height: 99%
                 border-radius: 8px
 
-        
+        .button-container
+            display: flex
+            width: 100%
+            height: 20%
+            padding-top: 20px
+            .choose-file-container
+                select
+                    border: 1px solid black
+                    background-color: #3468eb
+                    option
+                        border: 1px solid black
+                        background-color: #3468eb
+
+            .submit-btn-container
+                margin-left: 20px
+                button
+                    border: 1px solid black
+                    background-color: #3468eb

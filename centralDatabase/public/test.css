@@ -49,3 +49,47 @@ body {
 .page {
     max-width: 100%;
 }
+
+.d-none {
+    display: flex;
+}
+
+.primary-button {
+    border-radius: 10px;
+    filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.15));
+    /* font-family: 'Poppins', sans-serif; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 23px;
+    line-height: 120%;
+    color: #5988ff;
+    padding: 15px 30px;
+    min-width: 200px;
+    min-height: 60px;
+}
+
+.primary-button:hover {
+    cursor: pointer;
+    color: white;
+    background: radial-gradient(74.22% 74.22% at 19.79% 22.42%,
+            #5988ff 6.25%,
+            #5988ff 51.56%,
+            #0043f0 100%);
+    transform: scale(1.1);
+}
+
+.bg {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.textarea-focus-settings {
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    resize: none;
+    font-size: 21px;
+    color: gray;
+}

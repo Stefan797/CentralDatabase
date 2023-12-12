@@ -2,12 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
 
 class FileController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
+    public function getAllFiles()
+    {
+        $files = File::all(); // Hole alle Objekte aus der File-Tabelle
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $files,
+        ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function getUserFiles()
+    {
+        if(!auth()->check()) {
+            abort(403,'Not logged in!');
+        }
+
+        $user = auth()->user();
+
+        $files = $user->files;
+
+        //$files = File::where('user_id', $user->id)->get();
+
+        //$files = File::all(); // Hole alle Objekte aus der File-Tabelle
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $files,
+        ], 200);
+    }
+
+    
+
+    /**
+     * Get a file by its filename.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFileByFilename(Request $request, $filename)
+    {
+        // $filename = $request->input('filename');
+        // echo $filename;
+
+        // ddd($filename);
+
+        // Suche die Datei anhand des Dateinamens
+        $file = File::where('filename', $filename)->first();
+
+        if ($file) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $file,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Datei nicht gefunden',
+            ], 404);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -1,89 +1,70 @@
 <script setup>
+import { ref } from 'vue';
+import { usehandledataManager } from '@/composables/handledataManager.js';
+
+const apiUrl = '/api/upload';
+const dataManager = usehandledataManager(apiUrl);
+
+const formData = ref({});
+const uploadPath = ref(null);
+
+const onUploadFiles = (evt) => {
+    //console.log(evt.target.files);
+    formData.value.file = evt.target.files[0];
+    //console.log(formData.value.file.name);
+};
+
+const sendForm = () => {
+    if (!formData.value.file) {
+        console.error('Keine Datei ausgewählt');
+        return;
+    }
+
+    const fileData = new FormData();
+    fileData.append('file', formData.value.file);
+
+    dataManager.postData(fileData)
+        .then((responseData) => {
+            //console.log('Antwort vom Server:', responseData);
+            if (responseData && responseData.uploaded_path) {
+                uploadPath.value = responseData.uploaded_path;
+            } else {
+                console.error('Ungültige Serverantwort');
+            }
+        })
+        .catch((error) => {
+            console.error('Fehler beim Hochladen der Datei:', error);
+        });
+};
 </script>
 
 <template>
-    <div class="upload-container">
-        <h2>File Uploader</h2>
-
-        <form>
-            <div>
-                <label for="title">Titel</label>
-                <input v-model="formData.title" type="text" name="title" id="title">
-            </div>
-            <div>
-                <label for="myfile">Datei uploaden</label>
-                <input ref="myfile" type="file" name="myfile" id="myfile" @change="onUploadFiles">
+    <div class="upload-container center">
+        <div class="form-container column">
+            <div class="response">
+                <h2>
+                    <!-- Datei erfolgreich hinzugefügt -->
+                    {{ uploadPath }}
+                </h2>
             </div>
 
-            <div>
-                <button @click.prevent="sendForm">Upload starten</button>
-            </div>
-        </form>
+            <form class="file-upload-form">
+                <div class="choose-file-container">
+                    <input class="primary-button" ref="myfile" type="file" name="myfile" id="myfile"
+                        @change="onUploadFiles">
+                </div>
 
-        <div>
-            <h2>
-                {{ uploadPath }}
-            </h2>
+                <div class="submit-btn-container">
+                    <button class="primary-button" @click.prevent="sendForm">Upload starten</button>
+                </div>
+            </form>
+
+
         </div>
     </div>
 </template>
 
 <script>
-
-export default {
-    data() {
-        return {
-            apiUrl: '/api/upload',
-            formData: {},
-            uploadPath: null
-        }
-    },
-
-    methods: {
-        onUploadFiles(evt) {
-            console.log(this.$refs.myfile.files)
-            this.formData.file = this.$refs.myfile.files[0];
-
-            console.log(this.formData.file.name);
-        },
-
-        sendForm() {
-            if (!this.formData.title) {
-                console.error('no title set');
-                return;
-            }
-
-            if (!this.formData.file) {
-                console.error('no file set');
-                return;
-            }
-
-            console.log('good to go!')
-
-            const formData = new FormData();
-            formData.append("file", this.formData.file);
-            formData.append("title", this.formData.title);
-
-            fetch(this.apiUrl, {
-                method: 'post',
-                body: formData,
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Something went wrong');
-            })
-            .then((responseJson) => {
-                // Do something with the response
-                this.uploadPath = responseJson.uploaded_path;
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-        }
-    }
-}
 
 </script>
 

@@ -2,19 +2,22 @@ import { defineStore } from 'pinia'
 
 export const useFilesStore = defineStore('files', {
     state: () => ({ 
-        count: 0, 
-        name: 'Eduardo' 
+        fileCache: [],
+        directories: [],
+        storedFileObjects: [],
     }),
+
+    getters: {
+        getFileObjects: (state) => state.storedFileObjects,
+    },
+
+    actions: {
+        sort() {
+            console.log('STORE: sort files here');
+        },
+
+        saveFileObjects(fileObjects) {
+          this.storedFileObjects = fileObjects;
+        },
+    },
 })
-
-// state: () => ({ count: 0, name: 'Eduardo' }),
-// getters: {
-// doubleCount: (state) => state.count * 2,
-// },
-// actions: {
-// increment() {
-// this.count++
-// },
-// },
-
-// import im script setup vue datei

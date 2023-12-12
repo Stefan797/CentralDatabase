@@ -1,4 +1,34 @@
 <script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+
+const user = ref({
+    username: '',
+    first_name: '',
+    last_name: '',
+    email: '',
+    password: ''
+});
+
+const saveData = () => {
+    axios.post('/user/create', user.value)
+        .then(response => {
+            console.log(response);
+            //login();
+        })
+        .catch(error => {
+            console.error('Fehler', error);
+        });
+};
+
+const showPassword = () => {
+    const passwordInput = document.querySelector('#passwordInput');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+};
 </script>
 
 <template>
@@ -46,45 +76,6 @@
 </template>
   
 <script>
-export default {
-    data() {
-        return {
-            'user': {
-                'username': '',
-                'first_name': '',
-                'last_name': '',
-                'email': '',
-                'password': ''
-            }
-        };
-    },
-
-    methods: {
-        saveData() {
-            axios.post('/user/create', this.user).then(
-                response => {
-                    console.log(response);
-                    //login();
-                }
-            ).catch(error => {
-                console.log('error');
-            })
-        },
-
-        // login() {
-        //     router.push('/v');
-        // },
-
-        showPassword() {
-            const passwordInput = this.$refs.passwordInput;
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-        }
-    }
-}
 </script>
   
 <style>

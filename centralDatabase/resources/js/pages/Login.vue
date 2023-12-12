@@ -1,5 +1,61 @@
 <script setup>
-import { set } from 'vue-demi';
+//import { set } from 'vue-demi';
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const user = ref({
+    email: '',
+    password: ''
+});
+const checkboxVisible = ref(false);
+let token = null;
+let user_id = null;
+let doNotMemorizeUserData = ref(false);
+
+const router = useRouter();
+
+const login = async () => {
+    try {
+        const response = await axios.post('/user/login', user.value);
+        console.log('Login-Response', response);
+        //token = response.data.token;
+        user_id = response.data.user.id;
+        sessionStorage.setItem('CurrentUserID', user_id);
+        //setInformations();
+        router.push('/v');
+    } catch (error) {
+        console.error('Fehler', error);
+    }
+};
+
+const setInformations = () => {
+    if (!doNotMemorizeUserData.value) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('CurrentUserID');
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('CurrentUserID', user_id);
+    } else {
+        localStorage.setItem('token', token);
+        localStorage.setItem('CurrentUserID', user_id);
+    }
+};
+
+const showPassword = () => {
+    const passwordInput = document.querySelector('#passwordInput');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+    } else {
+        passwordInput.type = 'password';
+    }
+};
+
+const rememberMe = () => {
+    checkboxVisible.value = !checkboxVisible.value;
+    doNotMemorizeUserData.value = checkboxVisible.value;
+
+    console.log(doNotMemorizeUserData.value);
+};
 
 </script>
 
@@ -41,68 +97,6 @@ import { set } from 'vue-demi';
 </template>
   
 <script>
-export default {
-    data() {
-        return {
-            'user': {
-                'email': '',
-                'password': ''
-            },
-            checkboxVisible: false,
-            token: null,
-            user_id: null,
-            doNotMemorizeUserData: false
-        };
-    },
-    methods: {
-        login() {
-            const vm = this;
-            axios.post('/user/login', this.user).then(
-                response => {
-                    console.log('loginresponse', response);
-                    vm.token = response.data.token
-                    vm.user_id = response.data.user_id
-                    vm.setInformations();
-                    vm.$router.push('/v');
-                },
-            ).catch(error => {
-                console.log('error');
-            })
-        },
-
-        setInformations() {
-            if (!this.doNotMemorizeUserData) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('CurrentUserID');
-                sessionStorage.setItem('token', this.token);
-                sessionStorage.setItem('CurrentUserID', this.user_id);
-            } else {
-                localStorage.setItem('token', this.token);
-                localStorage.setItem('CurrentUserID', this.user_id);
-            }
-        },
-
-        showPassword() {
-            const passwordInput = this.$refs.passwordInput;
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-        },
-
-        rememberMe() {
-            this.checkboxVisible = !this.checkboxVisible;
-            if (this.checkboxVisible) {
-                this.doNotMemorizeUserData = true;
-            } else {
-                this.doNotMemorizeUserData = false;
-            }
-
-            console.log(this.doNotMemorizeUserData);
-        }
-    },
-};
 </script>
   
 <style>
