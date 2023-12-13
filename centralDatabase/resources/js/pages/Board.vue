@@ -1,7 +1,55 @@
+<script setup>
+import { ref } from 'vue';
+
+const smartphonemenu = ref(false);
+const ideasList = ref(null);
+const ideas = ref([]);
+const isDragged = ref(false);
+
+function contentMoveLeft() {
+    console.log('Move content left');
+
+}
+
+function contentMoveRight() {
+    console.log('Move content right');
+
+}
+
+function dropEvent(event, category) {
+    console.log('Drop event:', event, 'Category:', category);
+
+}
+
+function openTask(item) {
+    console.log('Open task:', item);
+
+}
+
+function dragStart(event) {
+    console.log('Drag start:', event);
+
+}
+
+function dragEnd() {
+    console.log('Drag end');
+
+}
+
+function checkTaskColor(color) {
+    return { backgroundColor: color };
+}
+
+function openDialog() {
+    console.log('Open dialog');
+
+}
+</script>
+
 <template>
     <customheader></customheader>
     <div class="board">
-        <!-- <div v-if="smartphonemenu" class="scroll-container">
+        <div v-if="smartphonemenu" class="scroll-container">
             <img @click="contentMoveLeft" src="assets/img/arrow-left.png" />
             <img @click="contentMoveRight" src="assets/img/arrow-right.png" />
         </div>
@@ -20,7 +68,7 @@
             <button @click="openDialog" class="btn-position btn-color" mat-fab matTooltip="Add New Ticket">
                 add
             </button>
-        </div> -->
+        </div>
     </div>
 </template>
   

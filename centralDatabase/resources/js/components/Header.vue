@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router';
 // import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
 // const routingManager = usehandleroutingManager();
 
-const user = ref({}); ;
+const user = ref({});;
 const router = useRouter();
 
 const logout = async () => {
@@ -20,8 +20,8 @@ const logout = async () => {
 };
 
 const openInNewTab = (path) => {
-    const routeData = router.resolve({ path });
-    window.open(routeData.href, '_blank');
+  const routeData = router.resolve({ path });
+  window.open(routeData.href, '_blank');
 };
 
 // const clearInformations = () => {
@@ -33,21 +33,23 @@ const openInNewTab = (path) => {
 </script>
 
 <template>
-    <div class="header center">
-        <div class="icon-container-left">
-            <img @click="logout()" src="/images/logout.png"/>
-        </div>
-
-        <router-link to="/v"><h1>CentralDatabase</h1></router-link>
-        
-        <div class="icon-container-right">
-            <a href="#" @click="openInNewTab('/v/cooking')"><img src="/images/kochmütze.png"/></a>
-            <a href="#" @click="openInNewTab('/v/chat')"><img src="/images/chat.png"/></a>
-            <a href="#" @click="openInNewTab('/v/contacts')"><img src="/images/contacts.png"/></a>
-            <a href="#" @click="openInNewTab('/v/modules')"><img src="/images/modules.png"/></a>
-            <a href="#" @click="openInNewTab('/v/directory')"><img src="/images/directory.png"/></a>
-        </div>
+  <div class="header center">
+    <div class="icon-container-left">
+      <img @click="logout()" src="/images/logout.png" />
     </div>
+
+    <router-link to="/v">
+      <h1>CentralDatabase</h1>
+    </router-link>
+
+    <div class="icon-container-right">
+      <a href="#" @click="openInNewTab('/v/cooking')"><img src="/images/kochmütze.png" /></a>
+      <a href="#" @click="openInNewTab('/v/chat')"><img src="/images/chat.png" /></a>
+      <a href="#" @click="openInNewTab('/v/contacts')"><img src="/images/contacts.png" /></a>
+      <a href="#" @click="openInNewTab('/v/modules')"><img src="/images/modules.png" /></a>
+      <a href="#" @click="openInNewTab('/v/directory')"><img src="/images/directory.png" /></a>
+    </div>
+  </div>
 </template>
 
 <script>

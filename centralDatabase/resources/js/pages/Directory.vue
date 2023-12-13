@@ -64,7 +64,8 @@ onMounted(() => {
 
 function selectFile(fileObject) {
   const { filename } = fileObject;
-  router.push({ name: 'File', params: { filename } });
+  const routeData = router.resolve({ name: 'File', params: { filename } });
+  window.open(routeData.href, '_blank');
 }
 
 </script>
@@ -82,7 +83,6 @@ function selectFile(fileObject) {
               <td>{{ letter }}
                 <div class="files-container" v-for="fileObject in filesDict[letter]">
                   <p @click="selectFile(fileObject)">{{ fileObject.filename }}</p>
-                  <!-- <p @click="selectFile(fileObject)"><a :href="fileObject.fileurl">{{ fileObject.filename }}</a></p> -->
                 </div>
               </td>
             </tr>

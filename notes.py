@@ -894,3 +894,24 @@
 # //     return $post;
 # // });
 
+
+# // if (router.currentRoute.value.query.file) {
+# //   console.log('URL-Parameter:', router.currentRoute.value.query.file);
+# //   try {
+# //     fileObject = JSON.parse(decodeURIComponent(router.currentRoute.value.query.file));
+# //     console.log('File Object:', fileObject);
+# //   } catch (error) {
+# //     console.error('Fehler beim Parsen der JSON-Zeichenfolge:', error);
+# //   }
+# // }
+
+
+# <!-- <p @click="selectFile(fileObject)"><a :href="fileObject.fileurl">{{ fileObject.filename }}</a></p> -->
+
+
+
+# // function selectFile(fileObject) {
+# //   const { filename } = fileObject;
+# //   router.push({ name: 'File', params: { filename } });
+# // }
+

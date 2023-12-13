@@ -4,15 +4,14 @@ import { onMounted, ref, computed } from 'vue';
 import { usehandledataManager } from '@/composables/handledataManager.js';
 
 const router = useRouter();
-const route = useRoute(); // Verwenden von useRoute, um auf Routeninformationen zuzugreifen
+const route = useRoute();
 
-// let fileObject = null;
 const fileObject = ref([]);
 
-const test = route.params.filename; // Zugriff auf Routenparameter mit useRoute
+const test = route.params.filename; 
 console.log('Z11:', test);
 
-const apiUrl = `/api/files/getbyfilename/${test}`; // Verwenden von Template-Literals, um die test-Variable zu interpolieren
+const apiUrl = `/api/files/getbyfilename/${test}`;
 const { getData } = usehandledataManager(apiUrl);
 
 async function fetchData() {
@@ -33,16 +32,6 @@ onMounted(() => {
   fetchData();
 });
 
-// if (router.currentRoute.value.query.file) {
-//   console.log('URL-Parameter:', router.currentRoute.value.query.file);
-//   try {
-//     fileObject = JSON.parse(decodeURIComponent(router.currentRoute.value.query.file));
-//     console.log('File Object:', fileObject);
-//   } catch (error) {
-//     console.error('Fehler beim Parsen der JSON-Zeichenfolge:', error);
-//   }
-// }
-
 const fileContentType = computed(() => {
     if(fileObject.value && fileObject.value.filename) {
         return getFileType(fileObject.value.filename)
@@ -50,8 +39,6 @@ const fileContentType = computed(() => {
 
     return null
 })
-
-
 
 const getFileType = (filename) => {
     const extension = filename.split('.').pop().toLowerCase();
@@ -71,7 +58,7 @@ const getFileType = (filename) => {
     <div class="page">
         <customheader></customheader>
         <div class="wrapper center">
-            <div class="file-wrapper">
+            <div class="file-wrapper center">
                 <h1>{{ fileObject.filename }}</h1>
                 
                 <div class="file-content-container" v-if="fileObject">
