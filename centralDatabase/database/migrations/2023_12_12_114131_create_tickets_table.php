@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('board_id');
+            $table->string('text');
+            $table->string('category');
+            $table->string('color');
             $table->timestamps();
         });
     }

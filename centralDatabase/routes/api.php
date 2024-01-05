@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\ChatKIController;
 use App\Http\Controllers\IndexcardController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //   ------ BoardController ------
 
 Route::get('/getUserBoard', [BoardController::class, 'getUserBoard']);
+Route::post('/createNewUserTicket', [TicketController::class, 'createNewUserTicket']);
 
 //   ------ ContactController ------
 
@@ -43,15 +45,17 @@ Route::get('/answer', [ChatKIController::class, 'answer']);
 
 Route::get('/getUserFiles', [FileController::class, 'getUserFiles']);
 Route::get('/files/getbyfilename/{filename}', [FileController::class, 'getFileByFilename']);
-//Route::get('/getAllFiles', [FileController::class, 'getAllFiles']);
+Route::get('/readAngularFile', [FileController::class, 'readAngularFile']);
+Route::post('/addFurtherTxt', [FileController::class, 'addFurtherTxt']);
 
 //   ------ IndexcardController ------
 
-Route::get('/getUserIndexcards', [IndexcardController::class, 'getUserIndexcards']);
+Route::get('/getUserIndexCards', [IndexcardController::class, 'getUserIndexCards']);
 
 //   ------ ProjectController ------
 
 Route::get('/getUserProjects', [ProjectController::class, 'getUserProjects']);
+Route::post('/createNewUserProject', [ProjectController::class, 'createNewUserProject']);
 
 //   ------ RecipeController ------
 

@@ -1,73 +1,119 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
+import { usehandledataManager } from '@/composables/handledataManager.js';
 
-const smartphonemenu = ref(false);
-const ideasList = ref(null);
-const ideas = ref([]);
-const isDragged = ref(false);
+const dataManager = usehandledataManager();
 
-function contentMoveLeft() {
-    console.log('Move content left');
+const overlayRef = ref(null);
+const tickets = ref([]);
 
+const ticket = ref({
+    text: '',
+    color: '',
+    category: ''
+});
+
+async function fetchData() {
+    try {
+        const result = await dataManager.getData('/api/getUserBoard');
+        if (result) {
+            tickets.value = result.data;
+            console.log('Datei wurde ausgewählt:', tickets);
+        } else {
+            console.error('Fehler beim Abrufen der Daten');
+        }
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
+    }
 }
 
-function contentMoveRight() {
-    console.log('Move content right');
+onMounted(() => {
+    fetchData();
+});
 
-}
+const openCreateNewTicket = (ticketcategory) => {
+    ticket.category = ticketcategory;
+    if (overlayRef.value) {
+        overlayRef.value.classList.remove('d-none');
+    } else {
+        console.error('Overlay-Element nicht gefunden.');
+    }
+};
 
-function dropEvent(event, category) {
-    console.log('Drop event:', event, 'Category:', category);
+function submitNewTicket() {
+    dataManager.postData('/api/createNewUserTicket', ticket)
+        .then((responseData) => {
+            if (responseData && responseData.uploaded_path) {
+                uploadPath.value = responseData.uploaded_path;
+            } else {
+                console.error('Ungültige Serverantwort');
+            }
+        })
+        .catch((error) => {
+            console.error('Fehler beim Hochladen der Datei:', error);
+        });
 
-}
-
-function openTask(item) {
-    console.log('Open task:', item);
-
-}
-
-function dragStart(event) {
-    console.log('Drag start:', event);
-
-}
-
-function dragEnd() {
-    console.log('Drag end');
-
-}
-
-function checkTaskColor(color) {
-    return { backgroundColor: color };
-}
-
-function openDialog() {
-    console.log('Open dialog');
-
+    // overlayRef.value.classList.add('d-none');
 }
 </script>
 
 <template>
-    <customheader></customheader>
-    <div class="board">
-        <div v-if="smartphonemenu" class="scroll-container">
-            <img @click="contentMoveLeft" src="assets/img/arrow-left.png" />
-            <img @click="contentMoveRight" src="assets/img/arrow-right.png" />
-        </div>
+    <div class="overlay center d-none" id="overlay" ref="overlayRef">
+        <div class="overlay-content center">
+            <form @submit.prevent="submitNewTicket()">
+                <p>Neues Ticket</p>
+                <input type="text" v-model="ticket.text">
+                <input type="text" v-model="ticket.color">
 
-        <div class="board-container section2" id="scrolling_div">
-            <div class="example-container">
-                <h2>Ideas</h2>
-                <div v-if="ideasList" ref="ideasList" class="example-list" @drop="dropEvent($event, 'ideas')">
-                    <div v-for="item in ideas" :key="item.id" @click="openTask(item)" :class="{ 'example-box': isDragged }"
-                        draggable="true" @dragstart="dragStart($event)" @dragend="dragEnd">
-                        <div :style="checkTaskColor(item.color)">{{ item.text }}</div>
+                <button class="primary-button" type="submit">Hinzufügen</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="page">
+        <customheader></customheader>
+        <div class="wrapper center">
+            <div class="kanban-board">
+                <div class="column">
+                    <div class="column-header">
+                        Ideas
+                        <img @click="openCreateNewTicket('ideas')" src="/images/addticketgreen.png" />
+                    </div>
+                    <div class="column-content">
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-header">
+                        Todo
+                        <img @click="openCreateNewTicket('todo')" src="/images/addticketgreen.png" />
+                    </div>
+                    <div class="column-content">
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-header">
+                        In Progress
+                        <img @click="openCreateNewTicket('in-progress')" src="/images/addticketgreen.png" />
+                    </div>
+                    <div class="column-content">
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="column-header">
+                        Done
+                        <img @click="openCreateNewTicket('done')" src="/images/addticketgreen.png" />
+                    </div>
+                    <div class="column-content">
+
                     </div>
                 </div>
             </div>
 
-            <button @click="openDialog" class="btn-position btn-color" mat-fab matTooltip="Add New Ticket">
-                add
-            </button>
+
+
         </div>
     </div>
 </template>

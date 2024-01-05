@@ -17,6 +17,9 @@ class Ticket extends Model
      */
     protected $fillable = [
         'board_id',
+        'text',
+        'category',
+        'color',
     ];
 
 

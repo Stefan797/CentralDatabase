@@ -1,8 +1,8 @@
-export function usehandledataManager(apiUrl) {
-    async function getData() {
+export function usehandledataManager() {
+    async function getData(path) {
         try {
-            const response = await fetch(apiUrl);
-            console.log(response);
+            const response = await fetch(path);
+            //console.log(response);
             if (!response.ok) {
                 throw new Error('Something went wrong');
             }
@@ -15,10 +15,10 @@ export function usehandledataManager(apiUrl) {
         }
     }
 
-    async function postData(data) {
+    async function postData(path, data) {
         console.log(data);
         try {
-            const response = await fetch(apiUrl, {
+            const response = await fetch(path, {
                 method: 'post',
                 body: data,
             });
@@ -35,7 +35,7 @@ export function usehandledataManager(apiUrl) {
         }
     }
 
-    async function putData(dataId, updatedData) {
+    async function putData(path, dataId, updatedData) {
         try {
             const response = await fetch(`${apiUrl}/${dataId}`, {
                 method: 'PUT',
@@ -55,7 +55,7 @@ export function usehandledataManager(apiUrl) {
         }
     }
 
-    async function deleteData(dataId) {
+    async function deleteData(path, dataId) {
         try {
             const response = await fetch(`${apiUrl}/${dataId}`, {
                 method: 'DELETE',

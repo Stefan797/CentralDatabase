@@ -5,9 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTicketRequest;
 use App\Http\Requests\UpdateTicketRequest;
 use App\Models\Ticket;
+use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function createNewUserTicket(Request $request)
+    {
+        
+        // dd($request);
+
+        $ticket = Ticket::create([
+            'text' => 'name',
+            'category' => 'category',
+            'color' => 'color',
+        ]);
+
+        return response()->json($ticket, 201);
+    }
+
     /**
      * Display a listing of the resource.
      */

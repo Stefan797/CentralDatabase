@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -14,17 +15,37 @@ class ProjectController extends Controller
      */
     public function getUserProjects()
     {
-        if(!auth()->check()) {
-            abort(403,'Not logged in!');
+        if (!auth()->check()) {
+            abort(403, 'Not logged in!');
         }
 
         $user = auth()->user();
-        $files = $user->files;
+        $projects = $user->projects;
 
         return response()->json([
             'status' => 'success',
-            'data' => $files,
+            'data' => $projects,
         ], 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function createNewUserProject(Request $request)
+    {
+        // if (!auth()->check()) {
+        //     abort(403, 'Not logged in!');
+        // }
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $project = Project::create([
+            'name' => $validatedData['name'],
+        ]);
+
+        return response()->json($project, 201);
     }
 
     /**

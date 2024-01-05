@@ -24,3 +24,5 @@ RUN useradd -rm \
 # RUN chown -R phpuser:phpgroup ./findrightIngredients
 
 USER phpuser
+
+# RUN echo "alias art='php artisan'" >> ~/.bashrc

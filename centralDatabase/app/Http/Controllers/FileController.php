@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Models\File;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -27,8 +28,8 @@ class FileController extends Controller
      */
     public function getUserFiles()
     {
-        if(!auth()->check()) {
-            abort(403,'Not logged in!');
+        if (!auth()->check()) {
+            abort(403, 'Not logged in!');
         }
 
         $user = auth()->user();
@@ -44,8 +45,6 @@ class FileController extends Controller
             'data' => $files,
         ], 200);
     }
-
-    
 
     /**
      * Get a file by its filename.
@@ -75,6 +74,29 @@ class FileController extends Controller
             ], 404);
         }
     }
+
+    public function readAngularFile()
+    {
+        if (Storage::disk('public')->exists('files/Angular.txt')) {
+            $content = Storage::disk('public')->get('files/Angular.txt');
+            // dd($content);
+            // Hier können Sie den Inhalt der Datei weiterverarbeiten
+            return response()->json([
+                'status' => 'success',
+                'data' => $content,
+            ], 200);
+        } else {
+            // Datei existiert nicht
+            return "Die Datei 'Angular.txt' existiert nicht.";
+        }
+    }
+
+    public function addFurtherTxt(Request $request, $filename)
+    {
+        Storage::append($filename, $request);
+    }
+
+
 
     /**
      * Display a listing of the resource.

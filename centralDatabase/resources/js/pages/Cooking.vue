@@ -1,6 +1,10 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { usehandledataManager } from '@/composables/handledataManager.js';
+
+const dataManager = usehandledataManager(); 
+const recipes = ref([]);
+
 // import { useFilesStore } from '@/stores/filesStore.js';
 // const filesStore = useFilesStore();
 // const fileObjects = ref(filesStore.getFileObjects);
@@ -8,23 +12,26 @@ import { usehandledataManager } from '@/composables/handledataManager.js';
 const fileObjects = ref([]);
 const filesDict = ref({});
 
-const apiUrl = '/api/getAllRecipes';
-const { getData } = usehandledataManager(apiUrl);
-
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 // const fileObjects = ref([]);
 
 async function fetchData() {
-  const result = await getData(apiUrl);
-  if (result) {
-    fileObjects.value = result.data;
-    console.log('Datei wurde ausgewählt:', fileObjects);
-    sortdata();
-    // filesStore.saveFileObjects(data);
-  } else {
-    console.error('Fehler beim Abrufen der Daten');
-  }
+    try {
+        const result = await dataManager.getData('/api/getAllRecipes');
+        if (result) {
+          recipes.value = result.data;
+            console.log('Datei wurde ausgewählt:', recipes);
+        } else {
+            console.error('Fehler beim Abrufen der Daten');
+        }
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
+    }
 }
+
+onMounted(() => {
+  fetchData();
+});
 
 async function sortdata() {
   const newfilesDict = {};
@@ -51,11 +58,6 @@ async function sortdata() {
   console.log('Sortierte Dateiobjekte nach Buchstaben:', newfilesDict);
   filesDict.value = newfilesDict;
 }
-
-onMounted(() => {
-  fetchData();
-  //debugger;
-});
 
 function selectFile(fileObject) {
   console.log('Datei wurde ausgewählt:', fileObject);

@@ -2,27 +2,31 @@
 import { onMounted, ref, computed } from 'vue';
 import { usehandledataManager } from '@/composables/handledataManager.js';
 
+const dataManager = usehandledataManager(); 
+const contacts = ref([]);
+
 const fileObjects = ref([]);
-
-const apiUrl = '/api/getAllFiles';
-const { getData } = usehandledataManager(apiUrl);
-
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
+
 async function fetchData() {
-    const data = await getData(apiUrl);
-    if (data) {
-        fileObjects.value = data;
-        console.log('Datei wurde ausgewählt:', fileObjects);
-        // filesStore.saveFileObjects(data);
-    } else {
-        console.error('Fehler beim Abrufen der Daten');
+    try {
+        const result = await dataManager.getData('/api/getUserContacts');
+        if (result) {
+            contacts.value = result.data;
+            console.log('Datei wurde ausgewählt:', contacts);
+        } else {
+            console.error('Fehler beim Abrufen der Daten');
+        }
+    } catch (error) {
+        console.error('Fehler beim Abrufen der Daten:', error);
     }
 }
 
 onMounted(() => {
     fetchData();
 });
+
 
 function selectFile(fileObject) {
     console.log('Datei wurde ausgewählt:', fileObject);
