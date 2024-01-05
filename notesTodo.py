@@ -10,6 +10,14 @@
 # 
 
 
+# alias dlog="docker compose logs -f --tail=300"
+# alias dex="docker compose exec"
+# alias dart="docker compose exec php php artisan"
+# alias devserver="docker compose exec node npm run dev"
+# alias dcps="docker compose ps"
+# alias dps="docker ps"
+# alias dup="docker compose up -d"
+
 
 
 # Fragen 
