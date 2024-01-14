@@ -37,15 +37,27 @@ class ProjectController extends Controller
         //     abort(403, 'Not logged in!');
         // }
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string|max:255',
+        // ]);
+
+        // $project = Project::create([
+        //     'name' => $validatedData['name'],
+        // ]);
+
+        $user_id = auth()->id();
 
         $project = Project::create([
-            'name' => $validatedData['name'],
+            'name' => $request->get('name'),
+            'user_id' => $user_id,
         ]);
 
-        return response()->json($project, 201);
+        #return response()->json($project, 201);
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $project,
+        ], 201);
     }
 
     /**

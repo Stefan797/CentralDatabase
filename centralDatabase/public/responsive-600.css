@@ -1,0 +1,15 @@
+@media only screen and (max-width: 600px) {
+
+    /* Allgemein */
+    .column-responsive {
+        display: flex;
+        flex-direction: column;
+    };
+
+    /* Add.vue */
+
+    /* .add {
+        width: 100% !important;
+        height: 80vh !important;
+    } */
+}

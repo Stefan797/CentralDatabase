@@ -3,8 +3,11 @@ import { onMounted, ref, computed } from 'vue';
 import { usehandledataManager } from '@/composables/handledataManager.js';
 import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
 import { useRouter } from 'vue-router';
+
+const dataManager = usehandledataManager();
 const router = useRouter();
 const { goToPath } = usehandleroutingManager();
+
 // import { useFilesStore } from '@/stores/filesStore.js';
 // const filesStore = useFilesStore();
 // const fileObjects = ref(filesStore.getFileObjects);
@@ -60,11 +63,11 @@ onMounted(() => {
     fetchData();
 });
 
-async function submitNewTxtToSelectedFile() {
-    debugger;
-    const submitEndpoint = '/api/addFurtherTxt';
-    const selectedFileName = document.getElementById('category').value;
-    const message = document.getElementById('message').value;
+async function submitNewTxtToSelectedFile(event) {
+    event.preventDefault();
+
+    const selectedFileName = event.target.elements['category'].value;
+    const message = event.target.elements['message'].value;
 
     if (!selectedFileName || !message) {
         console.error('Bitte wähle eine Datei aus und gib eine Nachricht ein.');
@@ -78,26 +81,29 @@ async function submitNewTxtToSelectedFile() {
         return;
     }
 
-    const data = {
-        filename: selectedFileName,
-        message: message
-        // Weitere Daten, die du möglicherweise senden musst
-    };
+    const data = new FormData();
+    data.append("filename", selectedFileName);
+    data.append("message", message);
 
-    const result = await postData(submitEndpoint, data);
-    if (result) {
-        fileObjects.value = result.data;
-        sortdata();
-        console.log('Neue Nachricht wurde hinzugefügt.');
-    } else {
-        console.error('Fehler beim Hinzufügen der Nachricht.');
-    }
+    dataManager
+        .postData("/api/addFurtherTxt", data)
+        .then((responseData) => {
+            console.log('Antwort vom Server:', responseData);
+            if (responseData) {
+                // newprojectbox.value = responseData.name;
+            } else {
+                console.error("Ungültige Serverantwort");
+            }
+        })
+        .catch((error) => {
+            console.error("Fehler beim Hochladen der Datei:", error);
+        });
 }
 </script>
 
 <template>
     <div class="add center">
-        <form class="form-container column">
+        <form class="form-container" @submit.prevent="submitNewTxtToSelectedFile">
 
             <div class="text-container">
                 <textarea class="textarea-focus-settings" id="message" name="message" required>
@@ -121,8 +127,7 @@ async function submitNewTxtToSelectedFile() {
                     </select>
                 </div>
                 <div class="submit-btn-container">
-                    <button @click="submitNewTxtToSelectedFile()" class="primary-button"
-                        type="submit">Hinzufügen</button>
+                    <button class="primary-button" type="submit">Hinzufügen</button>
                 </div>
 
             </div>
@@ -134,4 +139,6 @@ async function submitNewTxtToSelectedFile() {
 </script>
   
 <style>
-@import '@/sass/components/add.sass';</style>
+@import '@/sass/components/add.sass';
+/* @import '@/sass/responsive/width-responsive-600.sass'; */
+</style>

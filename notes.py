@@ -1,6 +1,103 @@
 # test@t.de   
 # test
 
+# // " ", leerzeichen  "\n" neue Zeile
+# // async function fetchDataSingleTxtFileAsString() {
+# //     debugger;
+# //     try {
+# //         let resultSingleTxtFile;
+
+# //         // Überprüfe, ob die Datei bereits abgerufen wurde
+# //         if (!fileContent.value.length) {
+# //             resultSingleTxtFile = await getData(apiUrlSingleTxtFile);
+
+# //             if (resultSingleTxtFile) {
+# //                 fileContent.value = String(resultSingleTxtFile.data).split('\n');
+# //                 console.log(typeof resultSingleTxtFile.data);
+# //                 console.log(resultSingleTxtFile.data);
+# //             } else {
+# //                 console.error('Fehler beim Abrufen der Daten');
+# //             }
+# //         }
+# //     } catch (error) {
+# //         console.error('Fehler beim Abrufen der Daten:', error);
+# //     }
+# // }
+
+
+
+# <div class="file-content-container" v-if="fileObject">
+#                     <div v-if="fileContentType === 'text'">
+#                         <pre>
+#                             <button v-for="(line, index) in fileContent" :key="index" @click="copyLine(index)">
+#                                 {{ index + 1 }}
+#                             </button>
+#                         </pre>
+#                     </div>
+#                     <div v-else-if="fileContentType == 'image'">
+#                         <img :src="fileObject.fileurl">
+#                     </div>
+#                     <div v-else-if="fileContentType == 'video'">
+#                         <video :src="fileObject.fileurl" controls></video>
+#                     </div>
+#                     <div v-else>Nichts!</div>
+#                 </div>
+
+
+# document.addEventListener("DOMContentLoaded", function() {
+#     const codeBlock = document.getElementById('code-block');
+#     const lines = codeBlock.innerHTML.split('\n');
+#     let numberedLines = '';
+#     for (let i = 0; i < lines.length; i++) {
+#         numberedLines += `<span class="line-num">${i + 1}</span>${lines[i]}\n`;
+#     }
+ 
+#     codeBlock.innerHTML = numberedLines;
+# });
+
+
+# padding-top: 20px
+#     height: calc(100vh - 8vh)
+#     position: relative
+
+# .cards 
+#     width: 38vw
+#     height: 30vh
+#     padding: 0 4vw 0 4vw
+#     margin: 20px 2vw 0 2vw
+#     border-radius: 8px
+
+#  <!-- <keyboard></keyboard> -->
+#  <!-- <div class="first-part">
+#                 <add></add>
+                
+#             </div>
+
+#             <div class="second-part">
+                
+#             </div> -->
+
+# /* filter: drop-shadow(5px 5px 15px rgba(0, 0, 0, 0.15)); */
+#     /* font-family: 'Poppins', sans-serif; */
+# /* background: radial-gradient(74.22% 74.22% at 19.79% 22.42%,
+#             #5988ff 6.25%,
+#             #5988ff 51.56%,
+#             #0043f0 100%); */
+
+#  // console.log(newprojectdata);
+#     // console.log(newprojectdata.projectname);
+#     // console.log(newprojectdata.get("projectname"));
+#     // debugger;
+
+# // const onChangeLetters = (evt) => {
+# //     console.log('Z92', evt.target.files);
+# //     formData.value.file = evt.target.files[0];
+# //     //console.log(formData.value.file.name);
+
+# //     // @change="onChangeLetters"
+# // NICHT DEN RICHTIGEN WERT ERHALTEN AUS DEM INPUT
+# // };
+
 
 # // const apiUrl = path;  Z3 handledataManager
 # const apiUrl = path;

@@ -1,9 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 // import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
 // const routingManager = usehandleroutingManager();
+const props = defineProps(['onSearchInput']);
 
 const user = ref({});;
 const router = useRouter();
@@ -24,6 +25,11 @@ const openInNewTab = (path) => {
   window.open(routeData.href, '_blank');
 };
 
+const handleSearchInput = (event) => {
+  // Emitte ein benutzerdefiniertes Event mit dem Suchbegriff
+  props.onSearchInput(event.target.value);
+};
+
 // const clearInformations = () => {
 //   localStorage.removeItem('token');
 //   localStorage.removeItem('CurrentUserID');
@@ -34,14 +40,17 @@ const openInNewTab = (path) => {
 
 <template>
   <div class="header center">
-    <div class="icon-container-left">
+    <div class="icon-container-left display-flex">
       <img @click="logout()" src="/images/logout.png" />
+      <router-link to="/v">
+        <h1>CentralDatabase</h1>
+      </router-link>
     </div>
 
-    <router-link to="/v">
-      <h1>CentralDatabase</h1>
-    </router-link>
-
+    <div class="search-input-con">
+      <input type="text" @input="handleSearchInput" />
+    </div>
+    
     <div class="icon-container-right">
       <a href="#" @click="openInNewTab('/v/cooking')"><img src="/images/kochmütze.png" /></a>
       <a href="#" @click="openInNewTab('/v/chat')"><img src="/images/chat.png" /></a>

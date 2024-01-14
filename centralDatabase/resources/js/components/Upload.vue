@@ -23,7 +23,7 @@ const sendForm = () => {
     const fileData = new FormData();
     fileData.append('file', formData.value.file);
 
-    dataManager.postData(fileData)
+    dataManager.postData('/api/upload', fileData)
         .then((responseData) => {
             //console.log('Antwort vom Server:', responseData);
             if (responseData && responseData.uploaded_path) {
@@ -40,14 +40,13 @@ const sendForm = () => {
 
 <template>
     <div class="upload-container center">
-        <div class="form-container column">
-            <div class="response">
+        <div class="form-container">
+            <div class="draganddropfield">
                 <h2>
-                    <!-- Datei erfolgreich hinzugefügt -->
                     {{ uploadPath }}
                 </h2>
             </div>
-
+            
             <form class="file-upload-form">
                 <div class="choose-file-container">
                     <input class="primary-button" ref="myfile" type="file" name="myfile" id="myfile"
@@ -58,8 +57,6 @@ const sendForm = () => {
                     <button class="primary-button" @click.prevent="sendForm">Upload starten</button>
                 </div>
             </form>
-
-
         </div>
     </div>
 </template>

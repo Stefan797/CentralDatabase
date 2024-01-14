@@ -10,7 +10,12 @@ const router = useRouter();
 const route = useRoute();
 
 // Input Overlay ---
-const mynewprojectname = ref("");
+
+const projectName = ref('');
+
+const logProjectName = () => {
+  console.log(projectName.value);
+};
 
 // Input Overlay ---
 const projects = ref([]);
@@ -24,7 +29,7 @@ async function fetchData() {
         const result = await dataManager.getData("/api/getUserProjects");
         if (result) {
             projects.value = result.data;
-            console.log("Datei wurde ausgewählt:", projects);
+            // console.log("Datei wurde ausgewählt:", projects);
         } else {
             console.error("Fehler beim Abrufen der Daten");
         }
@@ -47,27 +52,19 @@ const addNewProject = () => {
 };
 
 function submitNewProject() {
-    debugger;
     const newprojectdata = new FormData();
-    newprojectdata.append("projectname", mynewprojectname.value);
-    console.log(newprojectdata);
-    console.log(newprojectdata.projectname);
-
+    newprojectdata.append("name", projectName.value);
+   
     dataManager
         .postData("/api/createNewUserProject", newprojectdata)
         .then((responseData) => {
-            //console.log('Antwort vom Server:', responseData);
+            console.log('Antwort vom Server:', responseData);
             if (responseData) {
                 newprojectbox.value = responseData.name;
                 fetchData();
             } else {
                 console.error("Ungültige Serverantwort");
             }
-            // if (responseData && responseData.uploaded_path) {
-            //     uploadPath.value = responseData.uploaded_path;
-            // } else {
-            //     console.error("Ungültige Serverantwort");
-            // }
         })
         .catch((error) => {
             console.error("Fehler beim Hochladen der Datei:", error);
@@ -81,8 +78,8 @@ function deleteProject(projectID) {
     // dataManager.deleteData(fileData)
     //     .then((responseData) => {
     //         //console.log('Antwort vom Server:', responseData);
-    //         if (responseData && responseData.uploaded_path) {
-    //             uploadPath.value = responseData.uploaded_path;
+    //         if (responseData) {
+    //             deletemessage.value = responseData.meldung;
     //         } else {
     //             console.error('Ungültige Serverantwort');
     //         }
@@ -101,22 +98,15 @@ function selectProject(project) {
     window.open(routeData.href, "_blank");
 }
 
-// const onChangeLetters = (evt) => {
-//     console.log('Z92', evt.target.files);
-//     formData.value.file = evt.target.files[0];
-//     //console.log(formData.value.file.name);
-
-//     // @change="onChangeLetters"
-// NICHT DEN RICHTIGEN WERT ERHALTEN AUS DEM INPUT
-// };
 </script>
 
 <template>
     <div class="overlay center d-none" id="overlay" ref="overlayRef">
         <div class="overlay-content center">
             <p>Neues Projekt</p>
-            <input name="mynewprojectname" type="text" ref="mynewprojectname" placeholder="Projekt Name">
-
+            <input name="mynewprojectname" type="text" v-model="projectName" placeholder="Projekt Name">
+            <!--ref="mynewprojectname"-->
+            <button @click="logProjectName">Wert ausloggen</button>
             <button @click.prevent="submitNewProject" class="primary-button">
                 Hinzufügen
             </button>

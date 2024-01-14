@@ -2,11 +2,11 @@
 </script>
 
 <template>
-    <customheader></customheader>
-    <div class="chat-cli">
-        <p>
-            Personal Chat Cli IO
-        </p>
+    <div class="page">
+        <customheader></customheader>
+        <div class="wrapper">
+            <div class="chat-cli"></div>
+        </div>
     </div>
 </template>
 

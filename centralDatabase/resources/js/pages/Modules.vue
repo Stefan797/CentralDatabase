@@ -6,11 +6,13 @@ const { goToPath } = usehandleroutingManager();
 
 <template>
     <customheader></customheader>
-    <div class="module">
-        <div @click="goToPath('/v/projects')" class="cards kanbanbg">
-        </div>
+    <div class="wrapper">
+        <div class="module">
+            <div @click="goToPath('/v/projects')" class="cards kanbanbg">
+            </div>
 
-        <div @click="goToPath('/v/index-cards')" class="cards indexcardsbg">
+            <div @click="goToPath('/v/index-cards')" class="cards indexcardsbg">
+            </div>
         </div>
     </div>
 </template>

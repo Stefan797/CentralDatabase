@@ -16,6 +16,8 @@
         "vite-plugin-sass": "^0.1.0"
     },
     "dependencies": {
+        "@codemirror/lang-javascript": "^6.2.1",
+        "@codemirror/theme-one-dark": "^6.1.2",
         "@uppy/dashboard": "^3.7.1",
         "@uppy/drag-drop": "^3.0.3",
         "@uppy/file-input": "^3.0.4",
@@ -23,7 +25,9 @@
         "@uppy/tus": "^3.4.0",
         "@uppy/vue": "^1.1.0",
         "@uppy/xhr-upload": "^3.5.0",
+        "codemirror": "^6.0.1",
         "pinia": "^2.1.7",
+        "vue-codemirror": "^6.1.1",
         "vue-router": "^4.2.5"
     },
     "overrides": {

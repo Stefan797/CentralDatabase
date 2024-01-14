@@ -6,10 +6,11 @@
         <link rel="icon" type="image/png" href="/images/favIcon.png"/>
         <title>CentralDatabase</title>
         <link rel="stylesheet" href="/test.css">
+        <link rel="stylesheet" href="/responsive-600.css">
         <style>
             .main {
                 height: 100vh;
-                width: 100vw;
+                width: 100%;
             }
         </style>
 

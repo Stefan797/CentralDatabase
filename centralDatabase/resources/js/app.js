@@ -8,6 +8,7 @@ import Header from './components/Header.vue'
 import Speech from './components/Speech.vue'
 import Upload from './components/Upload.vue'
 import Keyboard from './components/Keyboard.vue'
+import CodeDisplay from './components/CodeDisplay.vue'
 import Directory from './pages/Directory.vue'
 import Home from './pages/Home.vue'
 import Modules from './pages/Modules.vue'
@@ -22,13 +23,29 @@ import File from './pages/File.vue'
 import Cooking from './pages/Cooking.vue'
 import IndexCards from './pages/IndexCards.vue'
 
+
 import router from './router.js'
 
 import './bootstrap';
+
+
+import { basicSetup } from 'codemirror'
+import VueCodemirror from 'vue-codemirror'
+
 const pinia = createPinia()
 const app = createApp();
 app.use(router);
 app.use(pinia)
+app.use(VueCodemirror, {
+    // optional default global options
+    autofocus: true,
+    disabled: false,
+    indentWithTab: true,
+    tabSize: 2,
+    placeholder: 'Code goes here...',
+    extensions: [basicSetup]
+    // ...
+});
 
 app.component('app', App);
 app.component('search', Search);
@@ -50,5 +67,6 @@ app.component('file', File);
 app.component('cooking', Cooking);
 app.component('keyboard', Keyboard);
 app.component('indexcards', IndexCards);
+app.component('codeDisplay', CodeDisplay);
 
 app.mount('#app');

@@ -16,6 +16,7 @@ export function usehandledataManager() {
     }
 
     async function postData(path, data) {
+        // debugger;
         console.log(data);
         try {
             const response = await fetch(path, {
@@ -27,7 +28,8 @@ export function usehandledataManager() {
                 throw new Error('Something went wrong');
             }
     
-            const responseData = await response.json();
+            //const responseData = await response.json();
+            const responseData = await response;
             return responseData;
         } catch (error) {
             console.error(error);

@@ -91,9 +91,26 @@ class FileController extends Controller
         }
     }
 
-    public function addFurtherTxt(Request $request, $filename)
+    public function addFurtherTxt(Request $request)
     {
-        Storage::append($filename, $request);
+        $filename = $request->input('filename');
+        $message = $request->input('message');
+
+        if ($message !== null) { # && is_string($message)
+            $filePath = 'public/files/' . $filename;
+
+            // Füge die Nachricht zur Datei hinzu
+            Storage::append($filePath, $message);
+
+            return response()->json([
+                'status' => 'success',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Ungültige Nachricht.',
+            ], 400);
+        }
     }
 
 
