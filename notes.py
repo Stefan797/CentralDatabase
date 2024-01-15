@@ -1,6 +1,21 @@
 # test@t.de   
 # test
 
+
+# // data.append("message", message);
+
+# function copyLine(lineNumber) {
+#     const codeElement = codeContent.value;
+#     const lines = codeElement.textContent.split('\n');
+#     const lineToCopy = lines[lineNumber];
+#     console.log('Kopiere Zeile:', lineToCopy);
+# }
+
+#   // code.value = response.data;
+#             // code.value = response.data.toString();
+#             // console.log(typeof resultSingleTxtFile.data);
+#             // console.log(resultSingleTxtFile.data);
+
 # // " ", leerzeichen  "\n" neue Zeile
 # // async function fetchDataSingleTxtFileAsString() {
 # //     debugger;

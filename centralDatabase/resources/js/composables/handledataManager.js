@@ -17,7 +17,7 @@ export function usehandledataManager() {
 
     async function postData(path, data) {
         // debugger;
-        console.log(data);
+        // console.log(data);
         try {
             const response = await fetch(path, {
                 method: 'post',

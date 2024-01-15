@@ -45,8 +45,10 @@ Route::get('/answer', [ChatKIController::class, 'answer']);
 
 Route::get('/getUserFiles', [FileController::class, 'getUserFiles']);
 Route::get('/files/getbyfilename/{filename}', [FileController::class, 'getFileByFilename']);
-Route::get('/readAngularFile', [FileController::class, 'readAngularFile']);
+Route::post('/readFileContent', [FileController::class, 'readFileContent']);
+Route::post('/updateFileContent', [FileController::class, 'updateFileContent']);
 Route::post('/addFurtherTxt', [FileController::class, 'addFurtherTxt']);
+
 
 //   ------ IndexcardController ------
 

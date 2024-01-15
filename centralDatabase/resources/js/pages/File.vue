@@ -1,40 +1,31 @@
 <script setup>
-import { defineProps, onBeforeMount, computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { usehandledataManager } from '@/composables/handledataManager.js';
+import { useFileStore } from '@/stores/fileStore';
+
+const fileStore = useFileStore();
+const fileContent = computed(() => fileStore.fileContent);
+const dataManager = usehandledataManager();
 
 const router = useRouter();
 const route = useRoute();
 const fileObject = ref([]);
-const fileContent = ref([]);
+// const fileContent = ref([]);
 let textFileProcessed = false;
-const test = route.params.filename;
-const apiUrl = `/api/files/getbyfilename/${test}`;
+const filename = route.params.filename;
+const apiUrl = `/api/files/getbyfilename/${filename}`;
 const apiUrlSingleTxtFile = '/api/readAngularFile';
 const { getData } = usehandledataManager(apiUrl);
 
-async function fetchDataSingleTxtFileAsString() {
-    try {
-        const resultSingleTxtFile = await getData(apiUrlSingleTxtFile);
-        if (resultSingleTxtFile) {
-            // fileContent.value = result.data;
-            // console.log('Datei wurde ausgewählt:', fileContent);
-            fileContent.value = String(resultSingleTxtFile.data).split('\n');
-            console.log(typeof resultSingleTxtFile.data);
-            console.log(resultSingleTxtFile.data);
-        } else {
-            console.error('Fehler beim Abrufen der Daten');
-        }
-    } catch (error) {
-        console.error('Fehler beim Abrufen der Daten:', error);
-    }
-}
 
 async function fetchData() {
     try {
         const result = await getData(apiUrl);
         if (result) {
             fileObject.value = result.data;
+
+            // console.log(fileObject.value);
         } else {
             console.error('Fehler beim Abrufen der Daten');
         }
@@ -71,11 +62,32 @@ const getFileType = (filename) => {
     }
 };
 
-function copyLine(lineNumber) {
-    const codeElement = codeContent.value;
-    const lines = codeElement.textContent.split('\n');
-    const lineToCopy = lines[lineNumber];
-    console.log('Kopiere Zeile:', lineToCopy);
+async function save() {
+    console.log(fileContent);
+
+    if (fileContent.value) {
+
+        // fileStore.setFileContent(neuerInhalt);
+
+        const data = new FormData();
+        data.append("filecontent", fileContent.value);
+        data.append("filename", filename);
+        dataManager
+            .postData("/api/updateFileContent", data)
+            .then((responseData) => {
+                console.log('Antwort vom Server:', responseData);
+                if (responseData) {
+                    console.log(responseData.message);
+                } else {
+                    console.error("Ungültige Serverantwort");
+                }
+            })
+            .catch((error) => {
+                console.error("Fehler beim Hochladen der Datei:", error);
+            });
+    } else {
+        console.log('File Content ist nicht verändert! Datei ist bereits so gespeichert');
+    }
 }
 </script>
 
@@ -85,12 +97,19 @@ function copyLine(lineNumber) {
         <customheader></customheader>
         <div class="wrapper center">
             <div class="file-wrapper">
-                <div class="file-name-container">
-                    <h1>{{ fileObject.filename }}</h1>
+                <div class="file-settings">
+                    <div class="file-name-container">
+                        <h1>{{ fileObject.filename }}</h1>
+                    </div>
+
+                    <div class="file-edit">
+                        <img @click="save()" src="/images/speichern.png" />
+                    </div>
+
                 </div>
 
-                <codeDisplay></codeDisplay>
-                
+                <codeDisplay :fileContent="fileContent"></codeDisplay>
+
             </div>
         </div>
     </div>

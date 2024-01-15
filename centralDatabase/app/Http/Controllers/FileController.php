@@ -75,10 +75,14 @@ class FileController extends Controller
         }
     }
 
-    public function readAngularFile()
+    public function readFileContent(Request $request)
     {
-        if (Storage::disk('public')->exists('files/Angular.txt')) {
-            $content = Storage::disk('public')->get('files/Angular.txt');
+        $filename = $request->input('filename');
+
+        // dd($filename);
+
+        if (Storage::disk('public')->exists("files/{$filename}")) {
+            $content = Storage::disk('public')->get("files/{$filename}");
             // dd($content);
             // Hier können Sie den Inhalt der Datei weiterverarbeiten
             return response()->json([
@@ -87,7 +91,30 @@ class FileController extends Controller
             ], 200);
         } else {
             // Datei existiert nicht
-            return "Die Datei 'Angular.txt' existiert nicht.";
+            return "Die Datei '{$filename}' existiert nicht.";
+        }
+    }
+
+    public function updateFileContent(Request $request)
+    {
+        $filename = $request->input('filename');
+
+        if (Storage::disk('public')->exists("files/{$filename}")) {
+            
+            $newContent = $request->input('filecontent');
+    
+            Storage::disk('public')->put("files/{$filename}", $newContent);
+    
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Dateiinhalt erfolgreich aktualisiert.',
+            ], 200);
+        } else {
+            // Datei existiert nicht
+            return response()->json([
+                'status' => 'error',
+                'message' => "Die Datei '{$filename}' existiert nicht.",
+            ], 404);
         }
     }
 

@@ -21,33 +21,42 @@
 
         .button-container
             display: flex
+            flex-direction: column
             width: 30%
             height: 20%
-            .choose-file-container
-                select
-                    border: 1px solid black
-                    background-color: white
-                    color: black
-                    transform: scale(1)
-                    option
+            .button-container-first
+                display: flex
+                .choose-file-container
+                    select
+                        border: 1px solid black
+                        background-color: white
+                        color: black
+                        transform: scale(1)
+                        option
+                            color: black
+                            border: 1px solid black
+                            background-color: white
+                            transform: scale(1)
+
+                .submit-btn-container
+                    margin-left: 20px
+                    button
                         color: black
                         border: 1px solid black
                         background-color: white
-                        transform: scale(1)
 
-            .submit-btn-container
-                margin-left: 20px
-                button
-                    color: black
-                    border: 1px solid black
-                    background-color: white
-
-            .speech-btn-container
-                margin-left: 20px
-                button
-                    color: black
-                    border: 1px solid black
-                    background-color: white
+            .button-container-second
+                display: flex
+                flex-direction: column
+                margin-top: 30px
+                .speech-btn-container
+                    button
+                        color: black
+                        border: 1px solid black
+                        background-color: white
+                        &:first-child
+                            margin-top: 10px
+                            
 
     @media only screen and (max-width: 600px)
         height: 60vh !important
@@ -69,23 +78,30 @@
                 align-items: center
                 width: 100% !important
                 height: 50% !important
-                .choose-file-container
-                    select
-                        min-height: 0px !important
-                        margin: 2px 0 !important
-                        option
+                .button-container-first
+                    display: flex
+                    flex-direction: column
+                    .choose-file-container
+                        select
                             min-height: 0px !important
+                            margin: 2px 0 !important
+                            option
+                                min-height: 0px !important
 
-                .submit-btn-container
-                    margin-left: 0px !important
-                    button
-                        min-height: 0px !important
-                        margin: 2px 0 !important
-                        min-width: 219px !important
+                    .submit-btn-container
+                        margin-left: 0px !important
+                        button
+                            min-height: 0px !important
+                            margin: 2px 0 !important
+                            min-width: 219px !important
 
-                .speech-btn-container
-                    margin-left: 0px !important
-                    button
-                        min-height: 0px !important
-                        margin: 2px 0 !important
-                        min-width: 219px !important
+                .button-container-second
+                    margin-top: 10px !important
+                    .speech-btn-container
+                        margin-left: 0px !important
+                        button
+                            min-height: 0px !important
+                            margin: 2px 0 !important
+                            min-width: 219px !important
+                            &:first-child
+                                margin-top: 5px !important

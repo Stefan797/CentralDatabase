@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const useFilesStore = defineStore('files', {
     state: () => ({ 
@@ -20,4 +20,4 @@ export const useFilesStore = defineStore('files', {
           this.storedFileObjects = fileObjects;
         },
     },
-})
+});

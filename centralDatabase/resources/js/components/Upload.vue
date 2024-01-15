@@ -2,8 +2,7 @@
 import { ref } from 'vue';
 import { usehandledataManager } from '@/composables/handledataManager.js';
 
-const apiUrl = '/api/upload';
-const dataManager = usehandledataManager(apiUrl);
+const dataManager = usehandledataManager();
 
 const formData = ref({});
 const uploadPath = ref(null);

@@ -90,6 +90,7 @@ async function submitNewTxtToSelectedFile(event) {
         .then((responseData) => {
             console.log('Antwort vom Server:', responseData);
             if (responseData) {
+                document.getElementById('message').value = '';
                 // newprojectbox.value = responseData.name;
             } else {
                 console.error("Ungültige Serverantwort");
