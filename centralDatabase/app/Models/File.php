@@ -21,6 +21,7 @@ class File extends Model
         'filepath',
         'filetype',
         'user_id',
+        'file_content',
     ];
 
     protected $appends = [

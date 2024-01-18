@@ -11,6 +11,7 @@ use App\Http\Controllers\ChatKIController;
 use App\Http\Controllers\IndexcardController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,6 +63,13 @@ Route::post('/createNewUserProject', [ProjectController::class, 'createNewUserPr
 //   ------ RecipeController ------
 
 Route::get('/getAllRecipes', [RecipeController::class, 'getAllRecipes']);
+
+//   ------ SearchController ------
+
+Route::post('/search', [SearchController::class, 'search']);
+Route::post('/searchFileInput', [SearchController::class, 'searchFileInput']);
+Route::post('/searchFileInputExec', [SearchController::class, 'searchFileInputExec']);
+
 
 //   ------ UploadManagerController ------
 

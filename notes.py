@@ -1,6 +1,43 @@
 # test@t.de   
 # test
 
+# // console.log('endergebnis test', this.searchResults);
+# console.log('body data', body.File[0].filename);
+
+# // import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
+# // const routingManager = usehandleroutingManager();
+# // const props = defineProps(['onSearchInput']);
+
+# export default {
+#   methods: {
+#     // ... andere Methoden der search-Komponente ...
+#     activate(searchTerm) {
+#       // Implementiere die Logik für die Aktivierung oder Aktualisierung hier
+#       console.log('activate-Funktion wurde aufgerufen mit Suchbegriff:', searchTerm);
+#     }
+#   }
+# }
+# const searchRef = ref(null);
+
+# const activateSearch = (searchTerm) => {
+#   // Überprüfe, ob searchRef korrekt zugewiesen ist, bevor darauf zugegriffen wird
+#   if (searchRef.value && typeof searchRef.value.activate === 'function') {
+#     // Aktiviere oder aktualisiere die search-Komponente mit dem Suchbegriff
+#     searchRef.value.activate(searchTerm);
+#   } else {
+#     console.error('searchRef ist nicht korrekt zugewiesen oder activate-Funktion fehlt.');
+#   }
+# };
+
+# export default {
+#   methods: {
+#     // ... andere Methoden der search-Komponente ...
+#     finishSearch(result) {
+#       this.$emit('search', result);
+#     }
+#   }
+# }
+
 
 # // data.append("message", message);
 

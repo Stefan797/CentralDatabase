@@ -18,6 +18,8 @@
 # alias dps="docker ps"
 # alias dup="docker compose up -d"
 
+# Geburtstagserinnerungen einbauen
+
 
 
 # Fragen 

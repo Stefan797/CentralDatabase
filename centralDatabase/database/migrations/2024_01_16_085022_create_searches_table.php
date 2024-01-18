@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('searches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->string('filename');
-            $table->text('file_content');
-            $table->string('filepath');
-            $table->string('filetype');
+            $table->text('content');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('searches');
     }
 };

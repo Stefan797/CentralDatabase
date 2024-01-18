@@ -3,6 +3,10 @@ import { computed, ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { usehandledataManager } from '@/composables/handledataManager.js';
 import { useFileStore } from '@/stores/fileStore';
+import { useSearchStore } from '@/stores/searchStore';
+
+const searchStore = useSearchStore();
+const search = ref(searchStore.search);
 
 const fileStore = useFileStore();
 const fileContent = computed(() => fileStore.fileContent);
@@ -113,6 +117,8 @@ async function save() {
             </div>
         </div>
     </div>
+
+    <search v-if="search"></search>
 </template>
 
 <script>

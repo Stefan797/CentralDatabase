@@ -1,10 +1,10 @@
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref  } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-// import { usehandleroutingManager } from '@/composables/handleroutingManager.js';
-// const routingManager = usehandleroutingManager();
-const props = defineProps(['onSearchInput']);
+import { useSearchStore } from '@/stores/searchStore';
+
+const searchStore = useSearchStore();
 
 const user = ref({});;
 const router = useRouter();
@@ -26,8 +26,19 @@ const openInNewTab = (path) => {
 };
 
 const handleSearchInput = (event) => {
-  // Emitte ein benutzerdefiniertes Event mit dem Suchbegriff
-  props.onSearchInput(event.target.value);
+  const inputValue = event.target.value;
+
+  if (inputValue.length >= 1) {
+    searchStore.setSearchStatus(true);
+    searchStore.setSearch(inputValue);
+    // searchStore.search();
+  } else {
+    searchStore.setSearchStatus(false);
+    searchStore.setSearch('');
+  }
+
+  // console.log(searchStore.searchActive);
+  // console.log(searchStore.searchQueries);
 };
 
 // const clearInformations = () => {
@@ -50,7 +61,7 @@ const handleSearchInput = (event) => {
     <div class="search-input-con">
       <input type="text" @input="handleSearchInput" />
     </div>
-    
+
     <div class="icon-container-right">
       <a href="#" @click="openInNewTab('/v/cooking')"><img src="/images/kochmütze.png" /></a>
       <a href="#" @click="openInNewTab('/v/chat')"><img src="/images/chat.png" /></a>
