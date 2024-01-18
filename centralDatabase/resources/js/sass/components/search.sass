@@ -3,18 +3,35 @@
     top: 8vh
     left: 0
     width: 100%
-    height: calc(200vh)
-    margin: 0 0 0 0
+    min-height: calc(200vh)
+    height: fit-content
+    // margin: 0 0 0 0
     background-color: #141414
     z-index: 10
-    
+
     .search-content
-        width: 96%
+        width: 90%
         height: 99%
         border-radius: 8px
+        margin-bottom: 50px
+        padding: 10px 0 0 5%
 
         .results
             height: 85%
             width: 100%
             border-radius: 8px
+            padding: 24px
             background-color: #b1b3bd
+            .results-files
+                font-size: 20px
+                h1
+                    font-weight: 800
+                    font-size: 21px
+                    margin-left: 5px
+                    margin-bottom: -15px
+
+                .file-content
+                    .highlighted-text
+                        color: red
+                        font-weight: bold
+                        font-size: 27px

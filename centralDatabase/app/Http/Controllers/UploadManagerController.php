@@ -28,6 +28,15 @@ class UploadManagerController extends Controller
             $extension = $request->file('file')->getClientOriginalExtension();
             // Filename to store
             $fileNameToStore = $filename . '.' . $extension; # .time().'.'
+
+            // Überprüfen, ob der Dateiname bereits existiert
+            if (Storage::disk('public')->exists("files/{$fileNameToStore}")) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Dateiname existiert bereits. Bitte wählen Sie einen anderen Dateinamen.',
+                ]);
+            }
+
             // Upload Image
             $path = $request->file('file')->storeAs('public/files', $fileNameToStore);
 

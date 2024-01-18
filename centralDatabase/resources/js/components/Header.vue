@@ -28,7 +28,7 @@ const openInNewTab = (path) => {
 const handleSearchInput = (event) => {
   const inputValue = event.target.value;
 
-  if (inputValue.length >= 1) {
+  if (inputValue.length >= 3) {
     searchStore.setSearchStatus(true);
     searchStore.setSearch(inputValue);
     // searchStore.search();

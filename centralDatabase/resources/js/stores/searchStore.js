@@ -21,7 +21,9 @@ export const useSearchStore = () => {
       },
       setSearch(searchterm) {
         this.searchQueries = searchterm;
-        this.search(this.searchQueries);
+        if (this.searchQueries.length >= 3) {
+          this.search(this.searchQueries);
+        }
       },
       setSearchStatus(status) {
         this.searchActive = status;
